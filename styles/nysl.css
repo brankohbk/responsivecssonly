@@ -5,24 +5,34 @@
   --secondary-color: hsl(84, 50%, 50%);
 }
 
+
+
 /* CLASES AUXILIARES */
 
 .row {
   display: flex;
   width: 100%;
+  flex-grow: 1;
 }
 
 /* ESTILOS GENERALES */
 body {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin: 0;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  padding: 0%; 
   font-size: 16px;
-  overflow: hidden;
+}
+#wrapper{
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  height: stretch;
+
 }
 
 /* LOGO */
@@ -37,7 +47,7 @@ body {
 header {
   height: 25vh;
   width: 100vw;
-  margin: 0;
+  padding: 1rem;
 }
 
 #home header,
@@ -56,7 +66,8 @@ header {
 h1 {
   margin: 1em;
   color: aliceblue;
-  font-size: 2.5em;
+  font-size: 8vw;
+  filter: drop-shadow(2px 2px #000);
 }
 
 /* BARRA DE NAVEGACION */
@@ -79,10 +90,11 @@ nav > a {
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   border-left: 6px solid transparent;
-  transition: background-color 0.6s, border-bottom 0.4s;
+  transition: background-color 0.4s;
 }
 
 nav > a:hover {
+  transition: border-bottom 0.4s;
   background-color: var(--secondary-color);
   border-bottom: 4px solid var(--brand-green);
 }
@@ -110,18 +122,25 @@ nav > a:hover {
   max-height: 75vh;
 }
 
+#collapse {
+  display: none;
+}
 .mobile-nav {
   position: absolute;
   width: 80vw;
-  height: 100vh;
+  height: 100%;
+  height: stretch;
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  top: 0;
   right: 0;
   justify-content: space-between;
   font-size: 1.7em;
   transform: translateX(100%);
   transition: transform 0.4s;
 }
-#collapse {
-  display: none;
+#collapse:checked ~ .mobile-nav {
+  transform: translateX(0);
 }
 #collapse + label {
   position: absolute;
@@ -149,9 +168,6 @@ nav > a:hover {
   display: block;
 }
 
-#collapse:checked ~ .mobile-nav {
-  transform: translateX(0);
-}
 
 /* CONTENIDO PRINCIPAL */
 main {
@@ -160,7 +176,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 75vh;
 }
 h2 {
   background: #000;
@@ -259,6 +274,11 @@ form input[type="checkbox"]:checked + label {
 }
 
 /* Media queries */
+@media (orientation:landscape),(min-width: 768px){
+  h1{
+    font-size: 2.5rem;
+  }
+}
 
 @media screen and (min-width: 768px) {
   #logo {
@@ -271,17 +291,25 @@ form input[type="checkbox"]:checked + label {
   }
   .mobile-nav{
   display: none;
-
   }
   .sidebar {
     width: 20vw;
   }
+  
 
   main {
     width: 80vw;
   }
 
   #about .content article {
-    width: 25%;
+    width: 40%;
+  }
+  #about article:nth-last-child(1) {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 992px) {
+  #about .content article {
+    width: 30%;
   }
 }
